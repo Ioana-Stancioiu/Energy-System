@@ -2,8 +2,9 @@ package simulator;
 
 import entities.Consumer;
 import entities.Distributor;
-import fileio.CostChanges;
+import fileio.DistributorChanges;
 import fileio.Input;
+import fileio.ProducerChanges;
 
 import java.util.List;
 
@@ -58,20 +59,23 @@ public final class Simulator {
         beginSimulation();
 
         for (int i = 0; i < input.getNumberOfTurns(); i++) {
-            List<Consumer> newConsumers = input.getMonthlyUpdates().get(i).getNewConsumers();
-            List<CostChanges> costChanges = input.getMonthlyUpdates().get(i).getCostChanges();
+            List<Consumer> newConsumers = input.getMonthlyUpdates()
+                                                            .get(i).getNewConsumers();
+            List<DistributorChanges> distributorChanges = input.getMonthlyUpdates()
+                                                            .get(i).getDistributorChanges();
+            List<ProducerChanges> producerChanges = input.getMonthlyUpdates()
+                                                            .get(i).getProducerChanges();
 
             //new consumers are added if they exist
             if (newConsumers != null) {
                 input.getConsumers().addAll(newConsumers);
             }
 
-            //cost changes are made if they exist
-            if (costChanges != null) {
-                for (CostChanges costChange : costChanges) {
+            //distributor cost changes are made if they exist
+            if (distributorChanges != null) {
+                for (DistributorChanges costChange : distributorChanges) {
                     Distributor distributor = input.getDistributors().get(costChange.getId());
                     distributor.setInfrastructureCost(costChange.getNewInfrastructureCost());
-                    distributor.setProductionCost(costChange.getNewProductionCost());
                 }
             }
 

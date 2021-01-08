@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
- * Class for contarct
+ * Class for contract
  */
 @JsonPropertyOrder({"consumerId", "price", "remainedContractMonths"})
 public class Contract {
@@ -54,7 +54,7 @@ public class Contract {
 
     /**
      *
-     * @return remaining contarct months
+     * @return remaining contract months
      */
     public int getRemainedContractMonths() {
         return remainedContractMonths;

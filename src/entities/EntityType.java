@@ -1,8 +1,8 @@
-package utils;
+package entities;
 
 /**
  * Enum for entity types
  */
 public enum EntityType {
-    Consumer, Distributor
+    Consumer, Distributor, Producer
 }

@@ -1,9 +1,9 @@
 package fileio;
 
 /**
- * Class for cost changes
+ * Class for distributor cost changes
  */
-public class CostChanges {
+public class DistributorChanges {
     /**
      * id of the distributor that receives the changes
      */
@@ -14,16 +14,10 @@ public class CostChanges {
      */
     private final long newInfrastructureCost;
 
-    /**
-     * new production cost for distributor
-     */
-    private final long newProductionCost;
 
-    public CostChanges(final int id, final long newInfrastructureCost,
-                       final long newProductionCost) {
+    public DistributorChanges(final int id, final long newInfrastructureCost) {
         this.id = id;
         this.newInfrastructureCost = newInfrastructureCost;
-        this.newProductionCost = newProductionCost;
     }
 
     /**
@@ -40,13 +34,5 @@ public class CostChanges {
      */
     public long getNewInfrastructureCost() {
         return newInfrastructureCost;
-    }
-
-    /**
-     *
-     * @return new production cost
-     */
-    public long getNewProductionCost() {
-        return newProductionCost;
     }
 }

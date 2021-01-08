@@ -66,7 +66,6 @@ public class Consumer implements Entity {
      *
      * @return budget
      */
-    @Override
     public long getBudget() {
         return budget;
     }
@@ -75,7 +74,6 @@ public class Consumer implements Entity {
      *
      * @param budget the new budget
      */
-    @Override
     public void setBudget(final long budget) {
         this.budget = budget;
     }
@@ -99,7 +97,6 @@ public class Consumer implements Entity {
      *
      * @return bankrupt status
      */
-    @Override
     public boolean isBankrupt() {
         return isBankrupt;
     }
@@ -108,7 +105,6 @@ public class Consumer implements Entity {
      *
      * @param bankrupt the new bankrupt status
      */
-    @Override
     public void setBankrupt(final boolean bankrupt) {
         isBankrupt = bankrupt;
     }

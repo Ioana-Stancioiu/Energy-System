@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import utils.Constants;
+import strategies.EnergyChoiceStrategyType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,16 +68,22 @@ public class Distributor implements Entity {
      */
     private List<Contract> penalisedConsumers;
 
+    private final int energyNeededKW;
+
+    private final EnergyChoiceStrategyType strategyType;
+
     public Distributor(final int id, final int contractLength, final long budget,
-                       final long infrastructureCost, final long productionCost) {
+                       final long infrastructureCost, final int energyNeededKW,
+                       final String strategyType) {
         this.id = id;
         this.contractLength = contractLength;
         this.budget = budget;
         this.infrastructureCost = infrastructureCost;
-        this.productionCost = productionCost;
         this.contracts = new ArrayList<>();
         this.isBankrupt = false;
         this.penalisedConsumers = null;
+        this.energyNeededKW = energyNeededKW;
+        this.strategyType = EnergyChoiceStrategyType.valueOf(strategyType);
     }
 
     /**
@@ -92,7 +99,6 @@ public class Distributor implements Entity {
      *
      * @return budget
      */
-    @Override
     public long getBudget() {
         return budget;
     }
@@ -101,7 +107,6 @@ public class Distributor implements Entity {
      *
      * @param budget the new budget
      */
-    @Override
     public void setBudget(final long budget) {
         this.budget = budget;
     }
@@ -213,7 +218,6 @@ public class Distributor implements Entity {
      *
      * @return true if bankrupt false otherwise
      */
-    @Override
     public boolean isBankrupt() {
         return isBankrupt;
     }
@@ -222,7 +226,6 @@ public class Distributor implements Entity {
      * Change bankrupt status
      * @param bankrupt new bankrupt status
      */
-    @Override
     public void setBankrupt(final boolean bankrupt) {
         isBankrupt = bankrupt;
     }
@@ -241,5 +244,22 @@ public class Distributor implements Entity {
      */
     public void setPenalisedConsumers(final List<Contract> penalisedConsumers) {
         this.penalisedConsumers = penalisedConsumers;
+    }
+
+    /**
+     *
+     * @return energy needed in KW
+     */
+    public int getEnergyNeededKW() {
+        return energyNeededKW;
+    }
+
+    /**
+     *
+     *
+     * @return strategy type
+     */
+    public EnergyChoiceStrategyType getStrategyType() {
+        return strategyType;
     }
 }

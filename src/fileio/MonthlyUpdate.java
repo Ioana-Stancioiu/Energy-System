@@ -14,13 +14,21 @@ public class MonthlyUpdate {
     private final List<Consumer> newConsumers;
 
     /**
-     * the list of cost changes
+     * the list of distributor cost changes
      */
-    private final List<CostChanges> costChanges;
+    private final List<DistributorChanges> distributorChanges;
 
-    public MonthlyUpdate(final List<Consumer> newConsumers, final List<CostChanges> costChanges) {
+    /**
+     * the list of producer cost changes
+     */
+    private final List<ProducerChanges> producerChanges;
+
+    public MonthlyUpdate(final List<Consumer> newConsumers,
+                         final List<DistributorChanges> distributorChanges,
+                         final List<ProducerChanges> producerChanges) {
         this.newConsumers = newConsumers;
-        this.costChanges = costChanges;
+        this.distributorChanges = distributorChanges;
+        this.producerChanges = producerChanges;
     }
 
     /**
@@ -33,9 +41,17 @@ public class MonthlyUpdate {
 
     /**
      *
-     * @return list of cost changes
+     * @return list of distributor cost changes
      */
-    public List<CostChanges> getCostChanges() {
-        return costChanges;
+    public List<DistributorChanges> getDistributorChanges() {
+        return distributorChanges;
+    }
+
+    /**
+     *
+     * @return list of producer cost changes
+     */
+    public List<ProducerChanges> getProducerChanges() {
+        return producerChanges;
     }
 }

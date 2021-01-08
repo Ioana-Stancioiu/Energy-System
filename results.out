@@ -1,0 +1,19 @@
+{
+  "consumers" : [ {
+    "id" : 0,
+    "isBankrupt" : false,
+    "budget" : 664
+  } ],
+  "distributors" : [ {
+    "id" : 0,
+    "budget" : 146,
+    "isBankrupt" : false,
+    "contracts" : [ {
+      "consumerId" : 0,
+      "price" : 14,
+      "remainedContractMonths" : 5
+    } ],
+    "energyNeededKW" : 2200,
+    "strategyType" : "PRICE"
+  } ]
+}

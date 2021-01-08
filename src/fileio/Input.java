@@ -2,6 +2,7 @@ package fileio;
 
 import entities.Consumer;
 import entities.Distributor;
+import entities.Producer;
 
 import java.util.List;
 
@@ -9,6 +10,8 @@ import java.util.List;
  * Class that stores input data
  */
 public final class Input {
+
+
     /**
      * number of turns for simulation
      */
@@ -25,17 +28,24 @@ public final class Input {
     private final List<Distributor> distributors;
 
     /**
+     * list of producers
+     */
+    private final List<Producer> producers;
+
+    /**
      * list of monthly updates
      */
     private final List<MonthlyUpdate> monthlyUpdates;
 
     public Input(final int numberOfTurns, final List<Consumer> consumers,
                  final List<Distributor> distributors,
+                 final List<Producer> producers,
                  final List<MonthlyUpdate> monthlyUpdates) {
 
         this.numberOfTurns = numberOfTurns;
         this.consumers = consumers;
         this.distributors = distributors;
+        this.producers = producers;
         this.monthlyUpdates = monthlyUpdates;
     }
 
@@ -61,6 +71,14 @@ public final class Input {
      */
     public List<Distributor> getDistributors() {
         return distributors;
+    }
+
+    /**
+     *
+     * @return list of producers
+     */
+    public List<Producer> getProducers() {
+        return producers;
     }
 
     /**
