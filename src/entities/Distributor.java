@@ -1,22 +1,27 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import strategies.ProducerStrategy;
 import utils.Constants;
 import strategies.EnergyChoiceStrategyType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Class for distributor
  */
 @JsonIgnoreProperties({"contractLength", "infrastructureCost", "productionCost", "bankrupt",
-                       "profit", "currentContractCost", "penalisedConsumers"})
-@JsonPropertyOrder({"id", "budget", "isBankrupt", "contracts"})
+                       "profit", "penalisedConsumers", "chosenProducerStrategy"})
+@JsonPropertyOrder({"id", "energyNeededKW", "contractCost", "budget",
+                    "producerStrategy", "isBankrupt", "contracts"})
 
-public class Distributor implements Entity {
+public class Distributor implements Entity, Observer {
     /**
      * distributor's id
      */
@@ -50,6 +55,7 @@ public class Distributor implements Entity {
     /**
      * distributor's current contract cost
      */
+    @JsonProperty("contractCost")
     private long currentContractCost;
 
     /**
@@ -68,9 +74,27 @@ public class Distributor implements Entity {
      */
     private List<Contract> penalisedConsumers;
 
+    /**
+     * energy needed monthly in KW
+     */
     private final int energyNeededKW;
 
+    /**
+     * strategy type
+     */
+    @JsonProperty("producerStrategy")
     private final EnergyChoiceStrategyType strategyType;
+
+    /**
+     * reference to strategy instance
+     */
+    private ProducerStrategy chosenProducerStrategy;
+
+    @JsonIgnore
+    private final List<Producer> producers;
+
+    @JsonIgnore
+    private boolean reapplyProducerStrategy;
 
     public Distributor(final int id, final int contractLength, final long budget,
                        final long infrastructureCost, final int energyNeededKW,
@@ -84,6 +108,8 @@ public class Distributor implements Entity {
         this.penalisedConsumers = null;
         this.energyNeededKW = energyNeededKW;
         this.strategyType = EnergyChoiceStrategyType.valueOf(strategyType);
+        this.producers = new ArrayList<>();
+        this.reapplyProducerStrategy = false;
     }
 
     /**
@@ -261,5 +287,39 @@ public class Distributor implements Entity {
      */
     public EnergyChoiceStrategyType getStrategyType() {
         return strategyType;
+    }
+
+    /**
+     *
+     * @return producer strategy
+     */
+    public ProducerStrategy getChosenProducerStrategy() {
+        return chosenProducerStrategy;
+    }
+
+    /**
+     *
+     * @param chosenProducerStrategy the reference to a strategy used for choosing producers
+     */
+    public void setChosenProducerStrategy(ProducerStrategy chosenProducerStrategy) {
+        this.chosenProducerStrategy = chosenProducerStrategy;
+    }
+
+    public List<Producer> getProducers() {
+        return producers;
+    }
+
+    public boolean isReapplyProducerStrategy() {
+        return reapplyProducerStrategy;
+    }
+
+    public void setReapplyProducerStrategy(boolean reapplyProducerStrategy) {
+        this.reapplyProducerStrategy = reapplyProducerStrategy;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        this.reapplyProducerStrategy = true;
+        o.deleteObserver(this);
     }
 }

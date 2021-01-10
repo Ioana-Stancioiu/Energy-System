@@ -2,6 +2,7 @@ package simulator;
 
 import entities.Consumer;
 import entities.Distributor;
+import entities.Producer;
 import fileio.DistributorChanges;
 import fileio.Input;
 import fileio.ProducerChanges;
@@ -55,6 +56,9 @@ public final class Simulator {
      * Simulate game
      */
     public void simulate() {
+        //distributors choose their producers and calculate their production cost
+        DistributorUtils.chooseProducerStrategy(input.getDistributors(), input.getProducers());
+
         //Round 0
         beginSimulation();
 
@@ -82,10 +86,22 @@ public final class Simulator {
             //start simulation
             beginSimulation();
 
+            if (producerChanges != null) {
+                for (ProducerChanges energyChanges : producerChanges) {
+                    Producer producer = input.getProducers().get(energyChanges.getId());
+                    producer.changeEnergyPerDistributor(energyChanges
+                                                                .getNewEnergyPerDistributor());
+                }
+            }
+
             //check for bankrupt distributors
             DistributorUtils.checkForBankruptDistributors(input.getDistributors());
             //check for bankrupt consumers
             DistributorUtils.checkForBankruptConsumers(input.getDistributors());
+            //producers remove their bankrupt distributors
+            ProducerUtils.removeBankruptDistributors(input.getProducers());
+            DistributorUtils.reapplyProducerStrategy(input.getDistributors());
+            ProducerUtils.addDistributorsPerMonth(input.getProducers(), i+1);
         }
     }
 

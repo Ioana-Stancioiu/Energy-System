@@ -30,6 +30,7 @@ public final class Constants {
     public static final String MAX_DISTRIBUTORS = "maxDistributors";
     public static final String PRICE_KW = "priceKW";
     public static final String ENERGY_PER_DISTRIBUTOR = "energyPerDistributor";
+    public static final String ENERGY_PRODUCERS = "energyProducers";
 
     //formulas constants
     public static final double TWENTY_PERCENT = 0.2;

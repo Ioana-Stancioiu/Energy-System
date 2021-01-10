@@ -35,6 +35,7 @@ public final class Writer {
 
             objectNode.putPOJO(Constants.CONSUMERS, input.getConsumers());
             objectNode.putPOJO(Constants.DISTRIBUTORS, input.getDistributors());
+            objectNode.putPOJO(Constants.ENERGY_PRODUCERS, input.getProducers());
 
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, objectNode);
 

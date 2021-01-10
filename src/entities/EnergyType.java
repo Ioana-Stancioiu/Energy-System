@@ -1,5 +1,7 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Types of energy produced by EnergyProducers
  */
@@ -12,6 +14,7 @@ public enum EnergyType {
 
     private final String label;
 
+    @JsonIgnore
     private final boolean renewable;
 
     EnergyType(String label, boolean renewable) {

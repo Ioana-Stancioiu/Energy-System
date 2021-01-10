@@ -3,6 +3,8 @@ package simulator;
 import entities.Consumer;
 import entities.Contract;
 import entities.Distributor;
+import entities.Producer;
+import strategies.ProducerStrategyFactory;
 import utils.Constants;
 
 import java.util.ArrayList;
@@ -216,6 +218,35 @@ public final class DistributorUtils {
             distributor.getContracts().removeAll(found);
         }
 
+    }
+
+    public static void chooseProducerStrategy(final List<Distributor> distributors,
+                                              final List<Producer> producers) {
+        ProducerStrategyFactory strategyFactory = ProducerStrategyFactory.getInstance();
+
+        for (Distributor distributor : distributors) {
+            distributor.setChosenProducerStrategy(strategyFactory.createStrategy(
+                                                            distributor.getStrategyType(),
+                                                            producers,
+                                                            distributor));
+            distributor.setProductionCost(distributor
+                                            .getChosenProducerStrategy()
+                                            .calculateProductionCost());
+        }
+    }
+
+    public static void reapplyProducerStrategy(final List<Distributor> distributors) {
+        for (Distributor distributor : distributors) {
+            if (distributor.isReapplyProducerStrategy() && !distributor.isBankrupt()) {
+                for (Producer producer : distributor.getProducers()) {
+                    producer.getDistributorList().remove(distributor);
+                    producer.deleteObserver(distributor);
+                }
+                distributor.setProductionCost(distributor
+                        .getChosenProducerStrategy().calculateProductionCost());
+                distributor.setReapplyProducerStrategy(false);
+            }
+        }
     }
 
 }
