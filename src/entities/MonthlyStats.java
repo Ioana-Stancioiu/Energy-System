@@ -9,7 +9,14 @@ import java.util.List;
 @JsonIgnoreProperties({"distributorsIDs"})
 @JsonPropertyOrder({"month", "distributorsIds"})
 public class MonthlyStats {
+    /**
+     * current month
+     */
     private final int month;
+
+    /**
+     * list of distributors' ids that received energy from producer
+     */
     @JsonProperty("distributorsIds")
     private final List<Integer> distributorsIds;
 
@@ -18,10 +25,18 @@ public class MonthlyStats {
         this.distributorsIds = distributorsIds;
     }
 
+    /**
+     *
+     * @return month
+     */
     public int getMonth() {
         return month;
     }
 
+    /**
+     *
+     * @return list of distributors' ids
+     */
     public List<Integer> getDistributorsIDs() {
         return distributorsIds;
     }

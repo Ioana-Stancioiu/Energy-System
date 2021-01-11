@@ -144,7 +144,7 @@ public class Consumer implements Entity {
     /**
      * Pay penalisation if behind with payments
      * @param currentBill the current rate to be payed
-     * @return true if successfully payed false if it consumer can't pay
+     * @return true if successfully payed false if consumer can't pay
      */
     public boolean payPenalisation(final long currentBill) {
         long bill = Math.round(Math.floor(Constants.PENALISATION_PERCENT * currentBill))

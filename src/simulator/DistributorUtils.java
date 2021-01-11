@@ -220,6 +220,12 @@ public final class DistributorUtils {
 
     }
 
+    /**
+     * Distributors apply their strategy to choose producers and calculate
+     * their production cost
+     * @param distributors list of distributors
+     * @param producers list of producers
+     */
     public static void chooseProducerStrategy(final List<Distributor> distributors,
                                               final List<Producer> producers) {
         ProducerStrategyFactory strategyFactory = ProducerStrategyFactory.getInstance();
@@ -235,13 +241,19 @@ public final class DistributorUtils {
         }
     }
 
+    /**
+     * Reapplies producer strategy for every distributors that has to
+     * @param distributors list of distributors
+     */
     public static void reapplyProducerStrategy(final List<Distributor> distributors) {
         for (Distributor distributor : distributors) {
-            if (distributor.isReapplyProducerStrategy() && !distributor.isBankrupt()) {
+            if (distributor.hasToReapplyProducerStrategy() && !distributor.isBankrupt()) {
+                //remove distributor from his producers' lists
                 for (Producer producer : distributor.getProducers()) {
                     producer.getDistributorList().remove(distributor);
                     producer.deleteObserver(distributor);
                 }
+                //calculate production cost
                 distributor.setProductionCost(distributor
                         .getChosenProducerStrategy().calculateProductionCost());
                 distributor.setReapplyProducerStrategy(false);

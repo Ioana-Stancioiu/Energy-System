@@ -100,8 +100,10 @@ public final class Simulator {
             DistributorUtils.checkForBankruptConsumers(input.getDistributors());
             //producers remove their bankrupt distributors
             ProducerUtils.removeBankruptDistributors(input.getProducers());
+            //distributors reapply their producers strategies
             DistributorUtils.reapplyProducerStrategy(input.getDistributors());
-            ProducerUtils.addDistributorsPerMonth(input.getProducers(), i+1);
+            //producers add the ids of their distributors for current month
+            ProducerUtils.addDistributorsPerMonth(input.getProducers(), i + 1);
         }
     }
 

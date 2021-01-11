@@ -5,11 +5,19 @@ import entities.Producer;
 
 import java.util.List;
 
-public class PriceStrategy extends ProducerStrategy{
+/**
+ * Class that implements price producer strategy
+ */
+public class PriceStrategy extends ProducerStrategy {
     public PriceStrategy(final List<Producer> producerList, final Distributor distributor) {
         super(producerList, distributor);
     }
 
+    /**
+     * Sorts list of producers by their price per KW and then by their quantity
+     * of energy provided
+     * @param producers list of producers
+     */
     @Override
     public void sortProducerList(final List<Producer> producers) {
         producers.sort(((o1, o2) -> {

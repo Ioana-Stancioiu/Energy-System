@@ -90,9 +90,16 @@ public class Distributor implements Entity, Observer {
      */
     private ProducerStrategy chosenProducerStrategy;
 
+    /**
+     * list of producers for current month
+     */
     @JsonIgnore
     private final List<Producer> producers;
 
+    /**
+     * true if distributor has to reapply his
+     * producer strategy
+     */
     @JsonIgnore
     private boolean reapplyProducerStrategy;
 
@@ -305,18 +312,37 @@ public class Distributor implements Entity, Observer {
         this.chosenProducerStrategy = chosenProducerStrategy;
     }
 
+    /**
+     *
+     * @return list of producers for current month
+     */
     public List<Producer> getProducers() {
         return producers;
     }
 
-    public boolean isReapplyProducerStrategy() {
+    /**
+     *
+     * @return true if distributor has to reapply strategy
+     * false otherwise
+     */
+    public boolean hasToReapplyProducerStrategy() {
         return reapplyProducerStrategy;
     }
 
+    /**
+     * Specify if distributor has to reapply strategy
+     * @param reapplyProducerStrategy true or false
+     */
     public void setReapplyProducerStrategy(boolean reapplyProducerStrategy) {
         this.reapplyProducerStrategy = reapplyProducerStrategy;
     }
 
+    /**
+     * If one of the distributor's producers changes their energy
+     * per distributor the distributor has to reapply producer strategy
+     * @param o the observable (producer)
+     * @param arg what has changed, if specified
+     */
     @Override
     public void update(Observable o, Object arg) {
         this.reapplyProducerStrategy = true;
