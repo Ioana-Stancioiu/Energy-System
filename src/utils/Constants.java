@@ -35,4 +35,5 @@ public final class Constants {
     //formulas constants
     public static final double TWENTY_PERCENT = 0.2;
     public static final double PENALISATION_PERCENT = 1.2;
+    public static final int TEN = 10;
 }

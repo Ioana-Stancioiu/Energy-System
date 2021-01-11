@@ -2,6 +2,7 @@ package strategies;
 
 import entities.Distributor;
 import entities.Producer;
+import utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,7 @@ public abstract class ProducerStrategy {
                 cost += producer.getEnergyPerDistributor() * producer.getPriceKW();
             }
         }
-        cost = Math.round(Math.floor(cost / 10));
+        cost = Math.round(Math.floor(cost / Constants.TEN));
 
         return cost;
     }
